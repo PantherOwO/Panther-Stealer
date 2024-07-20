@@ -19,11 +19,11 @@ At the moment there are no virus detections or false positives. (20/07/2024)
 ### Grab
 
 - Ip
-- Token do Discord
-- Senhas do Navegador
-- Cookies do Navegador
-- Historico do Navegador
-- Cartão do Navegador
+- Discord Token
+- Browser Passwords
+- Browser Cookies
+- Browser History
+- Browser Card
 - 2fa Backup
   
 ---
