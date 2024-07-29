@@ -40,7 +40,7 @@ At the moment there are no virus detections or false positives. (20/07/2024)
 ---
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/1262961424536440919/1264252110854291526/image.png?ex=669d3207&is=669be087&hm=2a1b68380e3b73eddc57445612db8ec3f5f96f1b137316af6295c6912615268e&=&format=webp&quality=lossless&width=984&height=442">
+  <img src="https://i.imgur.com/wHQlnT0.png">
 </p>
 
 ---
