@@ -2,3 +2,4 @@ package-lock.json
 src/package-lock.json
 src/node_modules/
 node_modules/
+src/index.js
