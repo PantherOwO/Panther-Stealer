@@ -13,6 +13,7 @@
 ### Updates
 
 > (01/08/2024) Complete update, adjusting bugs, detections.
+> (09/08/2024) Resolved api issue.
 
 ---
 
