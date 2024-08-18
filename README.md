@@ -12,8 +12,7 @@
 
 ### Updates
 
-###### (01/08/2024) Complete update, adjusting bugs, detections.
-###### (09/08/2024) Resolved api issue.
+> (01/08/2024) Complete update, adjusting bugs, detections.
 
 > (09/08/2024) Resolved api issue.
 
@@ -80,9 +79,4 @@
 
 ### Conclusion
 
-<<<<<<< HEAD
-* **If you encounter any issues,** feel free to reach out to me on Telegram: [t.me/oppolar](https://t.me/oppolar).
-=======
-* If you happen to have problems with this, call me on telegram: [t.me/oppolar](https://t.me/oppolar)
-* If you want to participate in this project: [t.me/oppolar](https://t.me/oppolar)
->>>>>>> 96631e3d78ad028431f2f13fef993ede0acf5e7a
+* If you encounter any issues, feel free to reach out to me on Telegram: [t.me/oppolar](https://t.me/oppolar).
