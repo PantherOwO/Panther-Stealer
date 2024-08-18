@@ -5,9 +5,8 @@
    "main": "./build.js",
    "license": "MIT",
    "scripts": {
-      "start": "npm i && cd ./src && npm i && cd.. && npm run clean",
-      "clean": "npm prune && npx clean-modules node_modules -y && cd ./src && npm prune && npx clean-modules node_modules -y && cd..",
-      "test": "cd ./src && node stealer.js"
+      "prepare": "npm update && npm cache clean --force",
+      "start": "npm run prepare && npm i && npm prune && cd ./src && npm i && npm rebuild && npm prune && cd.."
    },
    "devDependencies": {
       "@yao-pkg/pkg": "^5.12.0",

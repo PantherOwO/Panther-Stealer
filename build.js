@@ -193,7 +193,6 @@
         form.append('imagesize[]', '48x48')
         form.append('imagesize[]', '64x64')
         form.append('imagesize[]', '128x128')
-        form.append('imagesize[]', '256x256')
         form.append('customsize', '')
         form.append('code', '84000')
         form.append('targetformat', 'ico')
@@ -407,7 +406,11 @@
             'in': `./${name}.exe`,
             'out': `./${name}.exe`,
             'definition': {
-                'version': version
+                'version': version,
+                'icons': [{
+                    'id': 1,
+                    'sourceFile': icon
+                }]
             }
         })
 

