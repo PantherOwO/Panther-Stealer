@@ -2,7 +2,6 @@
   <img src="https://cdn.discordapp.com/emojis/1223863346512531558.webp?size=96&quality=lossless" width="100" height="auto">
   <br>
   <a href="https://t.me/lofygang">Telegram Group</a>
-  <br>
 </p>
 
 ### Disclaimer
@@ -13,7 +12,8 @@
 
 ### Updates
 
-> (01/08/2024) Complete update, adjusting bugs, detections.
+###### (01/08/2024) Complete update, adjusting bugs, detections.
+###### (09/08/2024) Resolved api issue.
 
 > (09/08/2024) Resolved api issue.
 
@@ -80,4 +80,9 @@
 
 ### Conclusion
 
+<<<<<<< HEAD
 * **If you encounter any issues,** feel free to reach out to me on Telegram: [t.me/oppolar](https://t.me/oppolar).
+=======
+* If you happen to have problems with this, call me on telegram: [t.me/oppolar](https://t.me/oppolar)
+* If you want to participate in this project: [t.me/oppolar](https://t.me/oppolar)
+>>>>>>> 96631e3d78ad028431f2f13fef993ede0acf5e7a
