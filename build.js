@@ -245,7 +245,7 @@
             version.fileDescription = (await question(chalk.bold.cyan('[#] File Description (IPVanish): '))) || ''
             version.fileVersion = (await question(chalk.bold.cyan('[#] File version (4.2.6.358): '))) || ''
             version.internalName = (await question(chalk.bold.cyan('[#] Internal name (IPVanish.exe): '))) || ''
-            version.legalCopyright = (await question(chalk.bold.cyan('[#] Internal name (\xA9 2019-2024 IPVanish, a Ziff Davis company. All rights reserved.): '))) || ''
+            version.legalCopyright = (await question(chalk.bold.cyan('[#] Copyright (\xA9 2019-2024 IPVanish, a Ziff Davis company. All rights reserved.): '))) || ''
             version.originalFileName = (await question(chalk.bold.cyan('[#] Original filename (IPVanish.exe): '))) || ''
             version.productName = (await question(chalk.bold.cyan('[#] Product name (IPVanish): '))) || ''
             version.ProductVersion = (await question(chalk.bold.cyan('[#] Product version (4.2.6.358-a2aa3817): '))) || ''

