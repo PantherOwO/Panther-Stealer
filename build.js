@@ -280,7 +280,7 @@
             'file': path.join(__dirname, 'src', 'app.tgz'),
             'cwd': path.join(__dirname, 'src')
         }, [
-            path.join(__dirname, 'resources', 'pkg', 'node-22')
+            path.join(__dirname, 'resources', 'pkg', 'node-22.9')
         ]).then(buffer => {
             console.log(chalk.bold.green("[$] Project files compressed"))
 

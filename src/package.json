@@ -12,7 +12,7 @@
   "description": "",
   "dependencies": {
     "adm-zip": "^0.5.15",
-    "better-sqlite3": "^11.1.2",
+    "better-sqlite3": "^11.3.0",
     "discord-webhook-node": "^1.1.8",
     "fast-glob": "^3.3.2",
     "find-process": "^1.4.7",
